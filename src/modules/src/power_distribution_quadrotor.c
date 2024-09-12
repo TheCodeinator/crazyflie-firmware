@@ -129,6 +129,15 @@ static void powerDistributionForce(const control_t *control, motors_thrust_uncap
   // Not implemented yet
 }
 
+static void powerDistributionPWM(const control_t *control, motors_thrust_uncapped_t* motorThrustUncapped){
+
+    motorThrustUncapped->motors.m1 = control->m1;
+    motorThrustUncapped->motors.m2 = control->m2;
+    motorThrustUncapped->motors.m3 = control->m3;
+    motorThrustUncapped->motors.m4 = control->m4;
+
+}
+
 void powerDistribution(const control_t *control, motors_thrust_uncapped_t* motorThrustUncapped)
 {
   switch (control->controlMode) {
@@ -140,6 +149,9 @@ void powerDistribution(const control_t *control, motors_thrust_uncapped_t* motor
       break;
     case controlModeForce:
       powerDistributionForce(control, motorThrustUncapped);
+      break;
+    case controlModePWM:
+      powerDistributionPWM(control, motorThrustUncapped);
       break;
     default:
       // Nothing here
