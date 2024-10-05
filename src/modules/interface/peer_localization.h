@@ -24,6 +24,12 @@ typedef struct peerLocalizationOtherPosition_s {
   point_t pos; // position and timestamp (millisecs)
 } peerLocalizationOtherPosition_t;
 
+typedef struct {
+  uint8_t id;
+  point_t pos;
+  velocity_t vel;
+} peerLocalizationOtherState_t;
+
 // Tell the peer localization system the position of another Crazyflie.
 // Should be called when the position is already known with high accuracy,
 // e.g. when a motion capture measurement packet is received.
@@ -36,8 +42,12 @@ bool peerLocalizationIsIDActive(uint8_t id);
 // Performs a linear search.
 peerLocalizationOtherPosition_t *peerLocalizationGetPositionByID(uint8_t id);
 
+peerLocalizationOtherState_t *peerLocalizationGetStateByID(uint8_t id);
+
 // Returns the position value based on index, uncorrelated with radio ID. More
 // efficient if iterating over all peers is needed.
 peerLocalizationOtherPosition_t *peerLocalizationGetPositionByIdx(uint8_t idx);
+
+peerLocalizationOtherState_t *peerLocalizationGetStateByIdx(uint8_t idx);
 
 #endif // __PEER_LOCALIZATION_H__
